@@ -12,7 +12,6 @@ import FooterSection from "@/components/landing/footer";
 import Points from "@/components/global/points";
 import { currentUser } from "@clerk/nextjs/server";
 import { Button } from "@/components/ui/button";
-import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,7 +44,7 @@ export default async function RootLayout({
               <Link href="/">
             <div className="flex items-center gap-2">
               <Image src={app_logo} alt="logo" width={70} height={70} />
-              Appify PWC
+              <h1 className="hidden md:block">Appify PWC</h1>
             </div>
               </Link>
             {user ? (
@@ -68,7 +67,6 @@ export default async function RootLayout({
             <NavigationMenuMain />
           </div>
           {children}
-          <Toaster />
           <FooterSection />
         </body>
       </html>

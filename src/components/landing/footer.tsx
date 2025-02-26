@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/footer";
 import app_logo from "../../../public/app-logo.png"
 import Image from "next/image";
-import LaunchUI from "@/components/logos/launch-ui";
 
 export default function FooterSection() {
   return (

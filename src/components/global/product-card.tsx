@@ -23,7 +23,6 @@ export default function ProductCard({ ...product }: productCardProps) {
           width={300}
           height={500}
           alt={product.name}
-          objectFit="cover"
         />
       </figure>
       <div className="flex justify-between">
