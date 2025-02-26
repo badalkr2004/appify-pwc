@@ -14,7 +14,8 @@ export default function Home() {
         Small Changes - Big Impact
       </h1>
       <p>
-        Your small step could lead to a bigger impact for the planet's future
+        Your small step could lead to a bigger impact for the planet `&apos`s
+        future
       </p>
 
       {/* services section */}

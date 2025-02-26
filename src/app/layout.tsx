@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import {NavigationMenuMain} from "@/components/landing/navbar"; // Adjust the path as necessary
+import { NavigationMenuMain } from "@/components/landing/navbar"; // Adjust the path as necessary
 import Image from "next/image";
 import app_logo from "../../public/app-logo.png";
 import { SignedIn, UserButton } from "@clerk/nextjs";
@@ -31,19 +31,22 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-center items-center`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-7xl mx-auto `}
         >
-          <div className=" p-2 flex  items-end w-full font-bold text-lg border-b text-gray-800 justify-between">
-            <Image src={app_logo} alt="logo" width={70} height={70} />
-            Appify PWC
-            <SignedIn>
-        <UserButton />
-      </SignedIn>
+          <div className="flex flex-col justify-center items-center">
+            <div className="p-2 flex  items-end w-full font-bold text-lg border-b text-gray-800 justify-between">
+              <Image src={app_logo} alt="logo" width={70} height={70} />
+              Appify PWC
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+
+            <div className="p-4">
+              <NavigationMenuMain />
+            </div>
           </div>
 
-          <div className="p-4">
-      <NavigationMenuMain/>
-      </div>
           {children}
         </body>
       </html>
