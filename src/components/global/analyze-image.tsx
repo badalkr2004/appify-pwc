@@ -92,7 +92,7 @@ export function ImageAnalysisForm() {
   }
 
   return (
-    <div className="rounded-md shadow-md border p-7 min-w-[500px] max-w-[600px]">
+    <div className="rounded-md shadow-md border p-7 min-w-[350px] max-w-[600px]">
       <h1 className="font-bold text-xl">Know your garbage value</h1>
       <br />
       <Form {...form}>
