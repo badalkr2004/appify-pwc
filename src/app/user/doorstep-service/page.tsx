@@ -1,5 +1,5 @@
 "use client";
-import { reportGarbage, serviceRequest } from "@/actions/user";
+import { serviceRequest } from "@/actions/user";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
