@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Minus, Plus } from "lucide-react";
-import { Bar, BarChart, ResponsiveContainer } from "recharts";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -40,14 +39,13 @@ export function CustomDrawer({ ...product }: customDrawerProps) {
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
-            <div className="flex gap-4">
-            <Image src = {product.productImage} width = {100} height = {100} alt="" />
-          <DrawerHeader>
-            <DrawerTitle>{product.productName}</DrawerTitle>
-            <DrawerDescription>{product.productCategory}</DrawerDescription>
-          </DrawerHeader>
-
-            </div>
+          <div className="flex gap-4">
+            <Image src={product.productImage} width={100} height={100} alt="" />
+            <DrawerHeader>
+              <DrawerTitle>{product.productName}</DrawerTitle>
+              <DrawerDescription>{product.productCategory}</DrawerDescription>
+            </DrawerHeader>
+          </div>
           <div className="p-4 pb-0">
             <h3>Quantity</h3>
             <br />

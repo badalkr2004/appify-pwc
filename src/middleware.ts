@@ -18,7 +18,7 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.redirect(url);
   }
   // Protect all routes starting with `/user`
-  if (isUserRoute(req)) {
+  if (isUserRoute(req) && !isAdminRoute(req)) {
     const url = new URL("/auth/sign-in", req.url);
     return NextResponse.redirect(url);
   }
