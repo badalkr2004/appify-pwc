@@ -44,7 +44,7 @@ export default function RootLayout({
             </SignedIn>
           </div>
 
-          <div className="p-4">
+          <div className="p-4 flex items-center justify-center">
             <NavigationMenuMain />
           </div>
           {children}
