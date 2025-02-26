@@ -6,7 +6,7 @@ const Points = async () => {
   const points = await creditPoints();
 
   return (
-    <div className="flex items-center p-2 bg-green-100 rounded-md">
+    <div className="flex items-center p-2 bg-green-100 rounded-md cursor-pointer">
       <Coins className=" text-2xl mr-2" />
       <span className="text-base font-semibold">{points.data} Points</span>
     </div>

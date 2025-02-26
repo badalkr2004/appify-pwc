@@ -70,7 +70,7 @@ export function NavigationMenuMain() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="How it works">
+              <ListItem href="/docs" title="How it works" >
                 This app helps you to dispose your large waste items.
               </ListItem>
               <ListItem href="/" title="Servies">
@@ -88,6 +88,7 @@ export function NavigationMenuMain() {
                   key={component.title}
                   title={component.title}
                   href={component.href}
+                  className=""
                 >
                   {component.description}
                 </ListItem>

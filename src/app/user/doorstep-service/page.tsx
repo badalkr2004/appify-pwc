@@ -170,7 +170,7 @@ const DoorStepService = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-3">appox. Weight</h3>
+            <h3 className="text-lg font-semibold mb-3 mt-3">Appox. Weight</h3>
             <Input
               className="w-full p-2 border rounded-md"
               placeholder="approx. weight..."

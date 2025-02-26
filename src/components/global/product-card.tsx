@@ -33,7 +33,7 @@ export default function ProductCard({ ...product }: productCardProps) {
           </h3>
           <p className="text-sm text-muted-foreground">{product.category}</p>
         </div>
-        <p className="text-lg font-semibold">{product.price}</p>
+        <p className="text-lg font-semibold">₹{product.price}</p>
       </div>
       <div className="flex gap-4">
         <Button variant="outline" size="icon" className="flex-shrink-0">
