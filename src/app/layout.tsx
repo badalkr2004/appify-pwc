@@ -11,6 +11,7 @@ import FooterSection from "@/components/landing/footer";
 import Points from "@/components/global/points";
 import { currentUser } from "@clerk/nextjs/server";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,6 +64,7 @@ export default async function RootLayout({
             <NavigationMenuMain />
           </div>
           {children}
+          <Toaster />
           <FooterSection />
         </body>
       </html>

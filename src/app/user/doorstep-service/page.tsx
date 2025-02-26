@@ -1,5 +1,6 @@
 "use client";
 import { serviceRequest } from "@/actions/user";
+import { toast } from "@/components/global/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -91,12 +92,9 @@ const DoorStepService = () => {
         phone: phone,
         address: address,
       });
-      setIsSubmitted(true);
     } catch (error) {
       setIsSubmitted(false);
       console.error("Submit error:", error);
-    } finally {
-      setIsSubmitted(false);
     }
   };
 
@@ -207,13 +205,14 @@ const DoorStepService = () => {
             <Button
               onClick={handleSubmitReport}
               className="w-full mt-4 bg-green-600 hover:bg-green-800"
+              disabled={isSubmitted}
             >
-              Submit Report
+              {isSubmitted ? "Submitted" : "Submit Report"}
             </Button>
           </div>
 
           {isSubmitted && (
-            <Alert className="bg-green-50">
+            <Alert className="bg-green-50 mt-4">
               <Check className="h-4 w-4 text-green-500" />
               <AlertTitle>Thank You!</AlertTitle>
               <AlertDescription>
