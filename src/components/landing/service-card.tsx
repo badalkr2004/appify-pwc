@@ -48,7 +48,7 @@ export function ServiceCard({ className, ...props}: CardProps) {
       </CardContent>
       <CardFooter>
         <Button className="w-full">
-          <Check /> Mark all as read
+          <Check /> Explore
         </Button>
       </CardFooter>
     </Card>
