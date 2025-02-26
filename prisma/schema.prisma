@@ -14,13 +14,44 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  email     String    @unique
   firstName String
   lastName  String
   image     String?
-  clerkid   String   @unique
-  credits   Int      @default(0)
+  clerkid   String    @unique
+  credits   Int       @default(0)
+  garbages  Garbage[]
+}
+
+model Garbage {
+  id                String   @id @default(uuid())
+  locationLatitude  String
+  locationLongitude String
+  garbageType       String
+  status            String
+  description       String
+  image             String
+  dateCreated       DateTime @default(now())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+}
+
+model Service {
+  id           String        @id @default(uuid())
+  image        String?
+  approxWeight String
+  latitude     String?
+  longitude    String?
+  phone        String
+  address      String
+  status       ServiceStatus @default(PENDING)
+}
+
+enum ServiceStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
 }
