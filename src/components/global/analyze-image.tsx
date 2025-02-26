@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Upload } from "lucide-react";
+import { Link, Loader2, Upload } from "lucide-react";
 import Image from "next/image";
 import { Trees, Droplet, DollarSign, Award } from "lucide-react";
 import {
@@ -317,7 +317,7 @@ export function ImageAnalysisForm() {
               {/* Dispose Button */}
               <div className="mt-6">
                 <Button className="w-full py-3  text-white rounded-md font-semibold">
-                  Dispose the item
+                  <Link href="/user/doorstep-service">Dispose the item</Link>
                 </Button>
               </div>
             </div>

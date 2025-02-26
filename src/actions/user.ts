@@ -166,3 +166,28 @@ export const serviceRequest = async ({
     return { success: false, error: "failed doorstep servie request" + error };
   }
 };
+
+export const creditPoints = async () => {
+  const user = await currentUser();
+
+  if (!user) {
+    return { success: false, error: "User not found" };
+  }
+
+  try {
+    const userExist = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        credits: true,
+      },
+    });
+    if (!userExist) {
+      return { success: false, error: "User not found" };
+    }
+    return { success: true, data: userExist.credits };
+  } catch (error) {
+    return { success: false, error: "failed to get credits" + error };
+  }
+};
