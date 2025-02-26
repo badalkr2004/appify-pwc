@@ -102,3 +102,67 @@ export async function reportGarbage(data: {
     return { success: false, error: error };
   }
 }
+
+export const serviceRequest = async ({
+  image,
+  approxWeight,
+  latitude,
+  longitude,
+  phone,
+  address,
+}: {
+  image: string;
+  approxWeight: string;
+  latitude: string;
+  longitude: string;
+  phone: string;
+  address: string;
+}) => {
+  const user = await currentUser();
+
+  if (!user) {
+    return { success: false, error: "User not found" };
+  }
+
+  const userExist = await client.user.findUnique({
+    where: {
+      clerkid: user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!userExist) {
+    return { success: false, error: "User not found" };
+  }
+  console.log(userExist.id);
+
+  if (
+    !image ||
+    !approxWeight ||
+    !latitude ||
+    !longitude ||
+    !phone ||
+    !address
+  ) {
+    return { success: false, error: "All fields are required" };
+  }
+  try {
+    const serviceRequest = await client.service.create({
+      data: {
+        userId: userExist.id,
+        image,
+        approxWeight,
+        latitude,
+        longitude,
+        phone,
+        address,
+      },
+    });
+    console.log(serviceRequest);
+    return { success: true, data: serviceRequest };
+  } catch (error) {
+    return { success: false, error: "failed doorstep servie request" + error };
+  }
+};
