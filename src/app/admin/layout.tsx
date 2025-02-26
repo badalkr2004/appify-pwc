@@ -7,8 +7,7 @@ type Props = {
 const dashboard = ({ children }: Props) => {
   return (
     <div>
-      <div className="nav"></div>
-      {children}
+      <div className="w-full">{children}</div>
     </div>
   );
 };
