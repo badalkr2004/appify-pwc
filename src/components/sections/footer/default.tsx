@@ -78,7 +78,7 @@ export default function FooterSection() {
             </FooterColumn>
           </FooterContent>
           <FooterBottom>
-            <div>© 2025 Mikołaj Dobrucki. All rights reserved</div>
+            <div>© 2025 Appify PWC All rights reserved</div>
             <div className="flex items-center gap-4">
               <a href="/">Privacy Policy</a>
               <a href="/">Terms of Service</a>
