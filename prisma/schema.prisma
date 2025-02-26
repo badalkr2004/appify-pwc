@@ -24,6 +24,7 @@ model User {
   clerkid   String    @unique
   credits   Int       @default(0)
   garbages  Garbage[]
+  service   Service[]
 }
 
 model Garbage {
@@ -48,6 +49,8 @@ model Service {
   phone        String
   address      String
   status       ServiceStatus @default(PENDING)
+  userId       String
+  user         User          @relation(fields: [userId], references: [id])
 }
 
 enum ServiceStatus {

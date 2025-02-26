@@ -1,56 +1,47 @@
 "use client";
-
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-
-import { Loader2 } from "lucide-react";
-import Image from "next/image";
+import { reportGarbage, serviceRequest } from "@/actions/user";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { AlertTriangle, Check, Loader2, MapPin } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
-export const formSchema = z.object({
-  image: z.string().url({ message: "Please upload an image." }),
+interface Location {
+  lat: number;
+  lng: number;
+}
 
-  approxWeight: z.string().min(1, { message: "please enter approx. weight" }),
-  address: z
-    .string()
-    .min(10, { message: "Description must be at least 10 characters long." }),
-  phone: z
-    .string()
-    .min(10, { message: "Description must be at least 10 characters long." }),
-  latitude: z.string().min(1, { message: "Please enter latitude" }),
-  longitude: z.string().min(1, { message: "Please enter longitude" }),
-});
-
-export default function ImageAnalysisForm() {
-  const [isUploading, setIsUploading] = useState(false);
+const DoorStepService = () => {
+  const [location, setLocation] = useState<Location | null>(null);
+  const [address, setAddress] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [uploadError, setUploadError] = useState<string | null>("");
+  const [phone, setPhone] = useState("");
+  const [weight, setWeight] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      approxWeight: "",
-      address: "",
-      image: "",
-      phone: "",
-      latitude: "",
-      longitude: "",
-    },
-  });
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // Cloudinary configuration
+
+  const handleLocationDetect = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+        }
+      );
+    }
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -90,110 +81,152 @@ export default function ImageAnalysisForm() {
     }
   };
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+  const handleSubmitReport = async () => {
+    try {
+      await serviceRequest({
+        image: imageUrl,
+        approxWeight: weight,
+        latitude: location?.lat,
+        longitude: location?.lng,
+        phone: phone,
+        address: address,
+      });
+      setIsSubmitted(true);
+    } catch (error) {
+      setIsSubmitted(false);
+      console.error("Submit error:", error);
+    } finally {
+      setIsSubmitted(false);
+    }
+  };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Upload Photo</h3>
-          <div className="space-y-4">
-            <Input
-              type="file"
-              accept="image/*"
-              className="w-full"
-              onChange={handleImageUpload}
-              disabled={isUploading}
-            />
-            {isUploading && (
-              <div className="flex items-center gap-2">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Uploading...
-              </div>
-            )}
-            {uploadError && (
-              <Alert variant="destructive">
-                <AlertTitle>Upload Error</AlertTitle>
-                <AlertDescription>{uploadError}</AlertDescription>
-              </Alert>
-            )}
-            {imageUrl && (
-              <div className="mt-4 relative w-full h-64">
-                <Image
-                  src={imageUrl}
-                  alt="Waste preview"
-                  className="rounded-lg object-contain w-full h-full"
-                  width={400}
-                  height={600}
-                />
-              </div>
-            )}
+    <div className="max-w-2xl mx-auto p-4">
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <AlertTriangle className="h-6 w-6 text-yellow-500" />
+            Report Waste Location
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div>
+            <h3 className="text-lg font-semibold mb-3"> Upload Photo</h3>
+            <div className="space-y-4">
+              <Input
+                type="file"
+                accept="image/*"
+                className="w-full"
+                onChange={handleImageUpload}
+                disabled={isUploading}
+              />
+              {isUploading && (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Uploading...
+                </div>
+              )}
+              {uploadError && (
+                <Alert variant="destructive">
+                  <AlertTitle>Upload Error</AlertTitle>
+                  <AlertDescription>{uploadError}</AlertDescription>
+                </Alert>
+              )}
+              {imageUrl && (
+                <div className="mt-4 relative w-full h-64">
+                  <Image
+                    src={imageUrl}
+                    alt="Waste preview"
+                    className="rounded-lg object-contain w-full h-full"
+                    width={400}
+                    height={600}
+                  />
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        <FormField
-          control={form.control}
-          name="approxWeight"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Approximate Weight (kg)</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.value)}
-                  className="border-green-500 focus:ring-green-500"
-                />
-              </FormControl>
-              <FormDescription>
-                Enter the approximate weight in kilograms.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3">
+              Share Location (Optional)
+            </h3>
+            <div className="space-y-4">
+              <Button
+                onClick={handleLocationDetect}
+                className="w-full flex items-center bg-green-600 hover:bg-green-800 justify-center gap-2"
+              >
+                <MapPin className="h-4 w-4" />
+                Detect My Location
+              </Button>
+              {location && (
+                <Alert>
+                  <AlertTitle>Location Detected</AlertTitle>
+                  <AlertDescription>
+                    Coordinates: {location.lat.toFixed(4)},{" "}
+                    {location.lng.toFixed(4)}
+                  </AlertDescription>
+                </Alert>
+              )}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-3">appox. Weight</h3>
+            <Input
+              className="w-full p-2 border rounded-md"
+              placeholder="approx. weight..."
+              value={weight}
+              onChange={(e) => {
+                setWeight(e.target.value);
+              }}
+            />
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Address</h3>
+            <textarea
+              className="w-full p-2 border rounded-md"
+              rows={4}
+              placeholder="Add Pickup Address"
+              value={address}
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-3">Phone</h3>
+            <Input
+              className="w-full p-2 border rounded-md"
+              placeholder="Phone number..."
+              value={phone}
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+            />
+
+            <Button
+              onClick={handleSubmitReport}
+              className="w-full mt-4 bg-green-600 hover:bg-green-800"
+            >
+              Submit Report
+            </Button>
+          </div>
+
+          {isSubmitted && (
+            <Alert className="bg-green-50">
+              <Check className="h-4 w-4 text-green-500" />
+              <AlertTitle>Thank You!</AlertTitle>
+              <AlertDescription>
+                Your report has been submitted successfully. The waste
+                management team will handle it soon. Your contribution helps
+                keep our city clean!
+              </AlertDescription>
+            </Alert>
           )}
-        />
-        <FormField
-          control={form.control}
-          name="address"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address</FormLabel>
-              <FormControl>
-                <Textarea
-                  rows={4}
-                  {...field}
-                  onChange={(e) => field.onChange(e.target.value)}
-                  className="border-green-500 focus:ring-green-500"
-                />
-              </FormControl>
-              <FormDescription>Please provideb your address</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Contact No.</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  className="border-green-500 focus:ring-green-500"
-                />
-              </FormControl>
-              <FormDescription>Provide a contact number.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button
-          type="submit"
-          className="bg-green-600 hover:bg-green-700 transition-colors duration-300"
-        >
-          Submit
-        </Button>
-      </form>
-    </Form>
+        </CardContent>
+      </Card>
+    </div>
   );
-}
+};
+
+export default DoorStepService;
