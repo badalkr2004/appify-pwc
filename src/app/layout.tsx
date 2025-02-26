@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedOut, SignInButton } from "@clerk/nextjs";
 import { NavigationMenuMain } from "@/components/landing/navbar"; // Adjust the path as necessary
 import Image from "next/image";
 import app_logo from "../../public/app-logo.png";
@@ -9,6 +9,8 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 import FooterSection from "@/components/landing/footer";
 
 import Points from "@/components/global/points";
+import { currentUser } from "@clerk/nextjs/server";
+import { Button } from "@/components/ui/button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +32,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await currentUser();
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
@@ -42,7 +45,14 @@ export default async function RootLayout({
               Appify PWC
             </div>
             <div className="flex gap-5">
-              <Points />
+              {user && <Points />}
+
+              <SignedOut>
+                <SignInButton>
+                  <Button className="bg-green-500">Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+
               <SignedIn>
                 <UserButton />
               </SignedIn>
