@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { SignOutButton } from "@clerk/nextjs";
 import React from "react";
 
 type Props = {
@@ -9,11 +7,7 @@ type Props = {
 const dashboard = ({ children }: Props) => {
   return (
     <div>
-      <div className="nav">
-        <Button className="btn-primary">
-          <SignOutButton />
-        </Button>
-      </div>
+      <div className="nav"></div>
       {children}
     </div>
   );
