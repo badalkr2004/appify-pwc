@@ -136,7 +136,6 @@ export const serviceRequest = async ({
   if (!userExist) {
     return { success: false, error: "User not found" };
   }
-  console.log(userExist.id);
 
   if (
     !image ||
