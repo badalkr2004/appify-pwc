@@ -84,7 +84,7 @@ const DoorStepService = () => {
 
   const handleSubmitReport = async () => {
     try {
-      await serviceRequest({
+      const resp = await serviceRequest({
         image: imageUrl,
         approxWeight: weight,
         latitude: String(location?.lat),
@@ -92,6 +92,13 @@ const DoorStepService = () => {
         phone: phone,
         address: address,
       });
+
+      if (!resp.success)
+        toast({
+          title: "Error",
+          description: resp.error as string,
+          variant: "destructive",
+        });
     } catch (error) {
       setIsSubmitted(false);
       console.error("Submit error:", error);

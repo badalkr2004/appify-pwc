@@ -163,7 +163,7 @@ export const serviceRequest = async ({
     console.log(serviceRequest);
     return { success: true, data: serviceRequest };
   } catch (error) {
-    return { success: false, error: "failed doorstep servie request" + error };
+    return { success: false, message: "failed doorstep servie request", error };
   }
 };
 
