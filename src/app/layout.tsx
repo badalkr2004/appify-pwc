@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import {NavigationMenuMain} from "@/components/landing/navbar"; // Adjust the path as necessary
+import Image from "next/image";
+import app_logo from "../../public/app-logo.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +30,16 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-center items-center`}
         >
+          <div className=" p-2 flex justify-center items-end w-full font-bold text-lg border-b text-gray-800">
+            <Image src={app_logo} alt="logo" width={70} height={70}/>
+            Appify PWC
+          </div>
+
+          <div className="p-4">
+      <NavigationMenuMain/>
+      </div>
           {children}
         </body>
       </html>
