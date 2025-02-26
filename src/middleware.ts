@@ -2,14 +2,16 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 // The route matcher defines routes that should be protected
+
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isUserRoute = createRouteMatcher(["/user(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  // Fetch the user's role from the session claims
-  const userRole = (await auth()).sessionClaims?.metadata?.role;
+  const { sessionClaims, userId } = await auth();
+  const userRole = sessionClaims?.metadata?.role;
+  const isAuthenticated = !!userId; // Check if user is logged in
 
-  // Protect all routes starting with `/admin`
+  // Protect admin routes - only admin/moderator can access
   if (
     isAdminRoute(req) &&
     !(userRole === "admin" || userRole === "moderator")
@@ -17,8 +19,9 @@ export default clerkMiddleware(async (auth, req) => {
     const url = new URL("/", req.url);
     return NextResponse.redirect(url);
   }
-  // Protect all routes starting with `/user`
-  if (isUserRoute(req) && !isAdminRoute(req)) {
+
+  // Protect user routes - any authenticated user can access
+  if (isUserRoute(req) && !isAuthenticated) {
     const url = new URL("/auth/sign-in", req.url);
     return NextResponse.redirect(url);
   }
