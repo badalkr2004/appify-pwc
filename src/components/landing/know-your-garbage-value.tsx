@@ -20,11 +20,11 @@ type CardProps = {
 } &
     React.ComponentProps<typeof Card>
 
-export function ServiceCard({ className, ...props}: CardProps) {
+export function KnowYourGarbageValue({ className, ...props}: CardProps) {
     const {title, description, imageurl, points = []} = props
   return (
-    <Card className={cn("w-[380px] h-[600px]", className)} {...props}>
-        <Image src={imageurl} alt="hero" width={600} height={400} className="h-2/4" /> 
+    <Card className={cn("w-3/6 h-[500px] flex", className)} {...props}>
+        <Image src={imageurl} alt="hero" width={300} height={600} className="h-2/4" /> 
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description} </CardDescription>

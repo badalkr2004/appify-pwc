@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import {NavigationMenuMain} from "@/components/landing/navbar"; // Adjust the path as necessary
+import { NavigationMenuMain } from "@/components/landing/navbar"; // Adjust the path as necessary
 import Image from "next/image";
 import app_logo from "../../public/app-logo.png";
 import { SignedIn, UserButton } from "@clerk/nextjs";
+import FooterSection from "@/components/landing/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,18 +34,21 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-center items-center`}
         >
-          <div className=" p-2 flex  items-end w-full font-bold text-lg border-b text-gray-800 justify-between">
+          <div className=" p-2 flex  items-center w-full font-bold text-lg border-b text-gray-800 justify-between ">
+            <div className="flex items-center gap-2">
             <Image src={app_logo} alt="logo" width={70} height={70} />
             Appify PWC
+            </div>
             <SignedIn>
-        <UserButton />
-      </SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
 
           <div className="p-4">
-      <NavigationMenuMain/>
-      </div>
+            <NavigationMenuMain />
+          </div>
           {children}
+          <FooterSection />
         </body>
       </html>
     </ClerkProvider>
