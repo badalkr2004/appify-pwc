@@ -32,7 +32,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-7xl mx-auto `}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased w-11/12 overflow-x-hidden mx-auto `}
         >
           <div className=" p-2 flex  items-center w-full font-bold text-lg border-b text-gray-800 justify-between ">
             <div className="flex items-center gap-2">

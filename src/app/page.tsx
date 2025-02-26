@@ -7,7 +7,11 @@ import earn_credit_points from "../../public/front-page/services/earn-credit-poi
 import { ServiceCard } from "@/components/landing/service-card";
 import { HoverInfo } from "@/components/global/hoverInfo";
 import { KnowYourGarbageValue } from "@/components/landing/know-your-garbage-value";
-import know_your_garbage_value from "../../public/front-page/services/know-your-garbage-value.jpg";
+import know_your_garbage_value from "../../public/front-page/services/know-your-garbage-value.png";
+import ProductCard from "@/components/global/product-card";
+import paper_cup from "../../public/market-place/paper-cup.jpg";
+import hand_bag from "../../public/market-place/hand-bag.jpg";
+import packing_box from "../../public/market-place/packing-box.jpg";
 
 export default function Home() {
   const services = [
@@ -34,6 +38,28 @@ export default function Home() {
       ],
     },
   ];
+
+  const productsList = [
+    {
+      name: "Paper Cup",
+      image: paper_cup.src,
+      price: "$15",
+      category: "Recycled Paper",
+    },
+    {
+      name: "Hand Bag",
+      image: hand_bag.src,
+      price: "$69",
+      category: "Recycled Plastic",
+    },
+    {
+      name: "Packing Box",
+      image: packing_box.src,
+      price: "$35",
+      category: "Recycled Paper",
+    },
+    
+  ];
   return (
     <div className="flex flex-col items-center ">
       <Image
@@ -43,7 +69,7 @@ export default function Home() {
         height={400}
         className="w-5/6 max-w-[600px]"
       />
-      <h1 className="text-4xl font-bold text-gray-800">
+      <h1 className="text-4xl font-bold text-gray-800 text-center">
         Small Changes - Big Impact
       </h1>
       <p className="w-3/4 text-center mt-3">
@@ -74,22 +100,35 @@ export default function Home() {
       {/* know your garbage value section */}
       <KnowYourGarbageValue
         title="Know Your Garbage Value"
-        description=""
+        description="Scan your trash to discover its credit points, value, and how disposing of it benefits the environment and sustainable development."
         imageurl={know_your_garbage_value.src}
         points={services[0].points}
       />
 
       {/* market section */}
-      <div className="flex flex-col items-center justify-center space-y-4 mt-8">
-        <h2 className="text-xl font-bold">Market Place</h2>
-        <div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg-grid-cols-3">
-          {/* <ServiceCard title="Sustainable Products" description="new description" imageurl={door_step_service.src} points= {servicesPoints[0] }  />
-          <ServiceCard title="Sustainable Products" description="new description" imageurl={door_step_service.src} points= {servicesPoints[0]} />
-          <ServiceCard title="Sustainable Products" description="new description" imageurl={door_step_service.src} points= {servicesPoints[0]} /> */}
+      <div className="flex flex-col items-center justify-center border-t w-10/12 p-7">
+        <br />
+        <HoverInfo
+          text="Market Place"
+          description="These are the products provided by us."
+        />
+        <br />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          {productsList.map((product, index) => (
+            <ProductCard
+              key={index}
+              name={product.name}
+              href="/product"
+              image={product.image}
+              price={product.price}
+              category={product.category}
+            />
+          ))}
+
         </div>
       </div>
-
-      <SustainableProducts />
+      <br />
+      <br />
     </div>
   );
 }
