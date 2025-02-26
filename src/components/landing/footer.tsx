@@ -5,8 +5,9 @@ import {
   FooterBottom,
   FooterContent,
 } from "@/components/ui/footer";
-import app_logo from "../../../public/app-logo.png"
+import app_logo from "../../../public/app-logo.png";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function FooterSection() {
   return (
@@ -22,67 +23,43 @@ export default function FooterSection() {
             </FooterColumn>
             <FooterColumn>
               <h3 className="text-md pt-1 font-semibold">Product</h3>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              <Link href="/" className="text-sm text-muted-foreground">
                 Changelog
-              </a>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              </Link>
+              <Link href="/" className="text-sm text-muted-foreground">
                 Documentation
-              </a>
+              </Link>
             </FooterColumn>
             <FooterColumn>
               <h3 className="text-md pt-1 font-semibold">Company</h3>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              <Link href="/" className="text-sm text-muted-foreground">
                 About
-              </a>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              </Link>
+              <Link href="/" className="text-sm text-muted-foreground">
                 Careers
-              </a>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              </Link>
+              <Link href="/" className="text-sm text-muted-foreground">
                 Blog
-              </a>
+              </Link>
             </FooterColumn>
             <FooterColumn>
               <h3 className="text-md pt-1 font-semibold">Contact</h3>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              <Link href="/" className="text-sm text-muted-foreground">
                 Discord
-              </a>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              </Link>
+              <Link href="/" className="text-sm text-muted-foreground">
                 Twitter
-              </a>
-              <a
-                href="/"
-                className="text-sm text-muted-foreground"
-              >
+              </Link>
+              <Link href="/" className="text-sm text-muted-foreground">
                 Github
-              </a>
+              </Link>
             </FooterColumn>
           </FooterContent>
           <FooterBottom>
             <div>© 2025 Appify PWC All rights reserved</div>
             <div className="flex items-center gap-4">
-              <a href="/">Privacy Policy</a>
-              <a href="/">Terms of Service</a>
+              <Link href="/">Privacy Policy</Link>
+              <Link href="/">Terms of Service</Link>
               <ModeToggle />
             </div>
           </FooterBottom>

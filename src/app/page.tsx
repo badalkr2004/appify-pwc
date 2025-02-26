@@ -1,5 +1,3 @@
-import SustainableProducts from "@/components/landing/product";
-
 import Image from "next/image";
 import cover_image from "../../public/front-page/main-cover-image.jpg";
 
@@ -9,7 +7,6 @@ import { KnowYourGarbageValue } from "@/components/landing/know-your-garbage-val
 import know_your_garbage_value from "../../public/front-page/services/know-your-garbage-value.png";
 import ProductCard from "@/components/global/product-card";
 
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { productsList } from "../localDB";
@@ -79,7 +76,7 @@ export default function Home() {
               image={product.image}
               price={product.price}
               category={product.category}
-              InMarket = {false}
+              InMarket={false}
             />
           ))}
         </div>

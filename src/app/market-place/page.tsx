@@ -1,7 +1,6 @@
 import { HoverInfo } from "@/components/global/hoverInfo";
 import { productsList } from "../../localDB";
 import ProductCard from "@/components/global/product-card";
-import { CustomDrawer } from "@/components/global/custom-drawer";
 
 export default function marketPlace() {
   return (
@@ -21,7 +20,7 @@ export default function marketPlace() {
             image={product.image}
             price={product.price}
             category={product.category}
-            InMarket = {true}
+            InMarket={true}
           />
         ))}
       </div>
