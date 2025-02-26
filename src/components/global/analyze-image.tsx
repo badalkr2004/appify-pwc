@@ -79,9 +79,9 @@ export function ImageAnalysisForm() {
       if (!response.ok) {
         throw new Error("Failed to analyze image");
       }
-      console.log(response);
+
       const resp = await response.json();
-      console.log("response:", resp.analysis);
+
       setData(resp);
       setIsOpen(true);
     } catch (error) {
