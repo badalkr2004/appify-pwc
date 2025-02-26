@@ -35,7 +35,8 @@ const ReportLocation = () => {
           setStep(2);
         },
         (error) => {
-          console.error("Error getting location:", error);
+          // console.error("Error getting location:", error);
+          console.log(error);
         }
       );
     }

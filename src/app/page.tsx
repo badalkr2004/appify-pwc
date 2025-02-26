@@ -12,6 +12,7 @@ import ProductCard from "@/components/global/product-card";
 import paper_cup from "../../public/market-place/paper-cup.jpg";
 import hand_bag from "../../public/market-place/hand-bag.jpg";
 import packing_box from "../../public/market-place/packing-box.jpg";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const services = [
@@ -25,6 +26,7 @@ export default function Home() {
         "Professional service at your doorstep.",
         "Convenient slots tailored to your schedule.",
       ],
+      redirecturl :"/user/doorstep-service"
     },
     {
       title: "Earn Credit Points",
@@ -36,6 +38,7 @@ export default function Home() {
         "Earn incentives for verified reports.",
         "Contribute to a cleaner, greener community.",
       ],
+      redirecturl : "/user/report-location"
     },
   ];
 
@@ -73,7 +76,7 @@ export default function Home() {
         Small Changes - Big Impact
       </h1>
       <p className="w-3/4 text-center mt-3">
-        Your small step could lead to a bigger impact for the planet s future
+        Your small step could lead to a bigger impact for the planets future
       </p>
 
       {/* services section */}
@@ -91,6 +94,7 @@ export default function Home() {
               description={service.description}
               imageurl={service.image}
               points={service.points}
+              redirecturl= {service.redirecturl}
             />
           ))}
         </div>

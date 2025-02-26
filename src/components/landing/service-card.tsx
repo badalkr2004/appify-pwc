@@ -11,17 +11,20 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Image from "next/image"
+import Link from "next/link"
+import { redirect } from "next/navigation"
 
 type CardProps = {
     title: string
     description?: string
     imageurl: string
     points?: string[]
+    redirecturl : string
 } &
     React.ComponentProps<typeof Card>
 
 export function ServiceCard({ className, ...props}: CardProps) {
-    const {title, description, imageurl, points = []} = props
+    const {title, description, imageurl, points = [] , redirecturl} = props
   return (
     <Card className={cn("w-[380px] h-[600px]", className)} {...props}>
         <Image src={imageurl} alt="hero" width={600} height={400} className="h-2/4" /> 
@@ -44,9 +47,11 @@ export function ServiceCard({ className, ...props}: CardProps) {
         </div>
       </CardContent>
       <CardFooter>
+        <Link href={redirecturl} className="w-full">
         <Button className="w-full">
           <Check /> Explore
         </Button>
+        </Link>
       </CardFooter>
     </Card>
   )

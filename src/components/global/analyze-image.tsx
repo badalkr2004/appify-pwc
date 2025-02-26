@@ -93,6 +93,9 @@ export function ImageAnalysisForm() {
   }
 
   return (
+    <div className="rounded-md shadow-md border p-7 min-w-[500px] max-w-[600px]">
+      <h1 className="font-bold text-xl">Know your garbage value</h1>
+      <br />
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -164,7 +167,7 @@ export function ImageAnalysisForm() {
                   type="text"
                   {...field}
                   onChange={(e) => field.onChange(e.target.value)}
-                  className="border-green-500 focus:ring-green-500"
+                  className=""
                 />
               </FormControl>
               <FormDescription>
@@ -182,7 +185,7 @@ export function ImageAnalysisForm() {
               <FormLabel>Category</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger className="border-green-500 focus:ring-green-500">
+                  <SelectTrigger className="">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                 </FormControl>
@@ -211,7 +214,7 @@ export function ImageAnalysisForm() {
               <FormControl>
                 <Textarea
                   {...field}
-                  className="border-green-500 focus:ring-green-500"
+                  className=""
                   rows={4}
                 />
               </FormControl>
@@ -224,7 +227,7 @@ export function ImageAnalysisForm() {
         />
         <Button
           type="submit"
-          className="bg-green-600 hover:bg-green-700 transition-colors duration-300"
+          className="bg-green-500"
           disabled={isAnalyzing}
         >
           {isAnalyzing ? (
@@ -238,5 +241,6 @@ export function ImageAnalysisForm() {
         </Button>
       </form>
     </Form>
+    </div>
   );
 }

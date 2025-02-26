@@ -7,6 +7,7 @@ import Image from "next/image";
 import app_logo from "../../public/app-logo.png";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import FooterSection from "@/components/landing/footer";
+import { Coins } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,9 +40,15 @@ export default function RootLayout({
               <Image src={app_logo} alt="logo" width={70} height={70} />
               Appify PWC
             </div>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            <div className="flex gap-5">
+              <div className="flex items-center p-2 bg-green-100 rounded-md">
+                <Coins className=" text-2xl mr-2" />
+                <span className="text-base font-semibold">245 Points</span>
+              </div>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
           </div>
 
           <div className="p-4 flex items-center justify-center">

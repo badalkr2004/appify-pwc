@@ -40,7 +40,7 @@ export default function ProductCard({...product}: productCardProps) {
         <Button variant="outline" size="icon" className="flex-shrink-0">
           <HeartIcon className="size-4" />
         </Button>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full bg-slate-200">
           <PlusIcon className="size-4 me-1" /> Buy Now
         </Button>
       </div>
