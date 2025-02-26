@@ -11,4 +11,18 @@ Consider key factors such as material type, weight, and composition. Provide ins
 -Reduction in carbon footprint.
 -Energy savings.
 -Ensure your analysis is clear, structured, and backed by logical reasoning.
+
+the Schema of the response is as follows:
+
+according to weight and material type, the estimated recycled value should be in the range of ₹100 or more.
+according to weight and material type, the credit point value should be in the range of 1 to 50.
+{
+  "productTitle": string,
+  "treesSaved": number,
+  "benefitsOfRecycling": string,  # this should elaborate description of the benefits of recycling
+  "estimatedRecycledValue": number,
+  "creditPoints": number
+}
+
+
 `;

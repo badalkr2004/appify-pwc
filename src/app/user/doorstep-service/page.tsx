@@ -86,8 +86,8 @@ const DoorStepService = () => {
       await serviceRequest({
         image: imageUrl,
         approxWeight: weight,
-        latitude: location?.lat,
-        longitude: location?.lng,
+        latitude: String(location?.lat),
+        longitude: String(location?.lng),
         phone: phone,
         address: address,
       });

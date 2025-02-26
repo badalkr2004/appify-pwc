@@ -1,9 +1,19 @@
 import { systemPromt } from "@/constants/prompts";
 import { type NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { zodResponseFormat } from "openai/helpers/zod";
+import { z } from "zod";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KE,
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const ImageAnalysis = z.object({
+  productTitle: z.string(),
+  treesSaved: z.number(),
+  benefitsOfRecycling: z.string(),
+  estimatedRecycledValue: z.number(),
+  creditPoints: z.number(),
 });
 
 export async function POST(request: NextRequest) {
@@ -21,7 +31,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(await image.arrayBuffer());
     const base64Image = buffer.toString("base64");
 
-    const response = await openai.chat.completions.create({
+    const response = await openai.beta.chat.completions.parse({
       model: "gpt-4o-mini",
       messages: [
         {
@@ -53,9 +63,11 @@ export async function POST(request: NextRequest) {
           ],
         },
       ],
+
+      response_format: zodResponseFormat(ImageAnalysis, "details"),
     });
 
-    return NextResponse.json({ analysis: response.choices[0].message.content });
+    return NextResponse.json({ analysis: response.choices[0].message.parsed });
   } catch (error) {
     console.error("Error analyzing image:", error);
     return NextResponse.json(
