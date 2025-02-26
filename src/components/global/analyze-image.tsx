@@ -23,9 +23,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "@/components/global/use-toast";
 import { Loader2, Upload } from "lucide-react";
 import Image from "next/image";
+import { Trees, Droplet, DollarSign, Award } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+import { Leaf } from "lucide-react";
+import { ImageAnalysis } from "@/types";
 
 export const formSchema = z.object({
   image: z.instanceof(File).refine((file) => file.size <= 5000000, {
@@ -43,6 +52,8 @@ export const formSchema = z.object({
 export function ImageAnalysisForm() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState<ImageAnalysis>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -69,24 +80,12 @@ export function ImageAnalysisForm() {
         throw new Error("Failed to analyze image");
       }
       console.log(response);
-      const data = await response.json();
-      console.log("openAI response", data);
-
-      toast({
-        title: "Analysis Complete",
-        description: (
-          <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      });
+      const resp = await response.json();
+      console.log("response:", resp.analysis);
+      setData(resp);
+      setIsOpen(true);
     } catch (error) {
       console.error("Error analyzing image:", error);
-      toast({
-        title: "Error",
-        description: "Failed to analyze image. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setIsAnalyzing(false);
     }
@@ -236,6 +235,95 @@ export function ImageAnalysisForm() {
           </Button>
         </form>
       </Form>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="bg-gradient-to-br from-green-50 to-green-100 border-green-200 shadow-lg">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-green-800 flex items-center">
+              <Leaf className="mr-2 h-6 w-6 text-green-600" />
+              Analyzed Data
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="max-w-md h-fit bg-white rounded-lg shadow-lg border border-gray-200">
+            {/* Card Header */}
+            <div className="p-6 bg-gradient-to-r from-green-400 to-green-700 text-white rounded-t-lg">
+              <h2 className="text-xl font-bold">
+                {data?.analysis.productTitle}
+              </h2>
+              <span className="text-sm font-medium mt-1">
+                {data?.analysis.typeOfRecycle}
+              </span>
+            </div>
+
+            {/* Card Body */}
+            <div className="p-6 space-y-6">
+              {/* Trees Saved */}
+              <div className="flex items-center space-x-3">
+                <Trees className="text-3xl text-green-500" />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">Trees Saved</span>
+                  <span className="text-lg font-semibold">
+                    {data?.analysis.treesSaved}
+                  </span>
+                </div>
+              </div>
+
+              {/* Water Saved */}
+              <div className="flex items-center space-x-3">
+                <Droplet className="text-3xl text-blue-500" />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">Water Saved</span>
+                  <span className="text-lg font-semibold">
+                    {data?.analysis.waterSaved}
+                  </span>
+                </div>
+              </div>
+
+              {/* Recycling Benefits */}
+              <div>
+                <span className="text-sm font-medium">
+                  Benefits of Recycling
+                </span>
+                <p className="text-gray-700 text-sm">
+                  {data?.analysis.benefitsOfRecycling}
+                </p>
+              </div>
+
+              {/* Estimated Recycled Value */}
+              <div className="flex items-center space-x-3">
+                <DollarSign className="text-3xl text-yellow-500" />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">
+                    Estimated Recycled Value
+                  </span>
+                  <span className="text-lg font-semibold">
+                    {data?.analysis.estimatedRecycledValue}
+                  </span>
+                </div>
+              </div>
+
+              {/* Credit Points */}
+              <div className="flex items-center space-x-3">
+                <Award className="text-3xl text-purple-500" />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">Credit Points</span>
+                  <span className="text-lg font-semibold">
+                    {data?.analysis.creditPoints}
+                  </span>
+                </div>
+              </div>
+
+              {/* Dispose Button */}
+              <div className="mt-6">
+                <Button className="w-full py-3  text-white rounded-md font-semibold">
+                  Dispose the item
+                </Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -8,12 +8,14 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const ImageAnalysis = z.object({
+export const ImageAnalysis = z.object({
   productTitle: z.string(),
   treesSaved: z.number(),
   benefitsOfRecycling: z.string(),
   estimatedRecycledValue: z.number(),
   creditPoints: z.number(),
+  waterSaved: z.number(),
+  typeOfRecycle: z.string(),
 });
 
 export async function POST(request: NextRequest) {

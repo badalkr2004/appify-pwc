@@ -16,12 +16,15 @@ the Schema of the response is as follows:
 
 according to weight and material type, the estimated recycled value should be in the range of ₹100 or more.
 according to weight and material type, the credit point value should be in the range of 1 to 50.
+typeOfRecycle--> what kind of recyling should be happen on this wate
 {
   "productTitle": string,
   "treesSaved": number,
   "benefitsOfRecycling": string,  # this should elaborate description of the benefits of recycling
   "estimatedRecycledValue": number,
-  "creditPoints": number
+  "creditPoints": number,
+  "waterSaved":number
+  "typeOfRecycle":string
 }
 
 

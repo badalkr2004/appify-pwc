@@ -9,3 +9,15 @@ export type GarbageData = {
   image: string | null;
   garbage_type: string;
 };
+
+export type ImageAnalysis = {
+  analysis: {
+    productTitle: string;
+    treesSaved: number;
+    benefitsOfRecycling: string;
+    estimatedRecycledValue: number;
+    creditPoints: number;
+    waterSaved: number;
+    typeOfRecycle: string;
+  };
+};

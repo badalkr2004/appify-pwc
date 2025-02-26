@@ -35,8 +35,8 @@ const NotFound = () => {
             Oops! Looks like this page got thrown in the wrong bin
           </h2>
           <p className="text-green-700 max-w-md mx-auto">
-            Don't worry! Just like proper waste management, we'll help you get
-            back on the right track to where you need to go.
+            Don&apos;t worry! Just like proper waste management, we&apos;ll help
+            you get back on the right track to where you need to go.
           </p>
         </div>
 
