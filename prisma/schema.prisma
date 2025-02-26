@@ -28,16 +28,16 @@ model User {
 }
 
 model Garbage {
-  id                String   @id @default(uuid())
+  id                String        @id @default(uuid())
   locationLatitude  String
   locationLongitude String
   garbageType       String
-  status            String
+  status            ServiceStatus @default(PENDING)
   description       String
   image             String
-  dateCreated       DateTime @default(now())
+  dateCreated       DateTime      @default(now())
   userId            String
-  user              User     @relation(fields: [userId], references: [id])
+  user              User          @relation(fields: [userId], references: [id])
 }
 
 model Service {
