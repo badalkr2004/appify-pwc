@@ -1,4 +1,3 @@
-// app/garbage/page.tsx
 import { Suspense } from "react";
 import GarbageReportTable from "@/components/admin/garbage-report-table";
 import { fetchGarbageReports, getGarbageStatistics } from "@/actions/admin";

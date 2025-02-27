@@ -20,19 +20,19 @@ import Image from "next/image";
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Request a Door-Step Service",
-    href: "/request-a-door-step-service",
+    href: "/user/request-a-door-step-service",
     description:
       "Easily schedule a convenient slot for our professionals to dispose of your heavy and large items such as sofas, fridges, or TVs right from your doorstep.",
   },
   {
     title: "Know your Garbage Value",
-    href: "/know-your-garbage-value",
+    href: "/user/know-your-garbage-value",
     description:
       "Scan your trash to discover its credit points, value, and how disposing of it benefits the environment and sustainable development.",
   },
   {
     title: "Earn Credit Points",
-    href: "/earn-credit-points",
+    href: "user/report-locacation",
     description:
       "Report scattered trash or garbage and earn credit points upon confirmation of the correct information. Get incentivized for helping keep our environment clean.",
   },

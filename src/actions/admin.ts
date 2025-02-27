@@ -15,6 +15,22 @@ export type Service = {
   userId: string;
 };
 
+export type StatusCount = {
+  status: ServiceStatus;
+  count: bigint | number;
+};
+
+export type TypeCount = {
+  garbageType: string;
+  count: bigint | number;
+};
+
+export type GarbageStatistics = {
+  totalReports: number;
+  reportsByStatus: StatusCount[];
+  reportsByType: TypeCount[];
+};
+
 export async function getServiceRequests(): Promise<Service[]> {
   try {
     const services = await client.service.findMany({
@@ -99,21 +115,39 @@ export async function updateGarbageStatus(id: string, status: ServiceStatus) {
  * Get total garbage reports statistics
  */
 
-export async function getGarbageStatistics() {
+export async function getGarbageStatistics(): Promise<{
+  success: boolean;
+  data?: GarbageStatistics;
+  error?: string;
+}> {
   try {
     const totalReports = await client.garbage.count();
 
-    const reportsByStatus = await client.$queryRaw`
-        SELECT status, COUNT(*) as count 
-        FROM "Garbage" 
-        GROUP BY status
-      `;
+    // Using a safer approach with Prisma's findMany and groupBy
+    const statusGroups = await client.garbage.groupBy({
+      by: ["status"],
+      _count: {
+        status: true,
+      },
+    });
 
-    const reportsByType = await client.$queryRaw`
-        SELECT "garbageType", COUNT(*) as count 
-        FROM "Garbage" 
-        GROUP BY "garbageType"
-      `;
+    const typeGroups = await client.garbage.groupBy({
+      by: ["garbageType"],
+      _count: {
+        garbageType: true,
+      },
+    });
+
+    // Transform to the expected format
+    const reportsByStatus: StatusCount[] = statusGroups.map((group) => ({
+      status: group.status as ServiceStatus,
+      count: group._count.status,
+    }));
+
+    const reportsByType: TypeCount[] = typeGroups.map((group) => ({
+      garbageType: group.garbageType,
+      count: group._count.garbageType,
+    }));
 
     return {
       success: true,

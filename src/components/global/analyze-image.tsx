@@ -23,15 +23,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Link, Loader2, Upload } from "lucide-react";
+import { IndianRupee, Loader2, Upload } from "lucide-react";
 import Image from "next/image";
-import { Trees, Droplet, DollarSign, Award } from "lucide-react";
+import { Trees, Droplet, Award } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Link from "next/link";
 
 import { Leaf } from "lucide-react";
 import { ImageAnalysis } from "@/types";
@@ -275,7 +276,7 @@ export function ImageAnalysisForm() {
                 <div className="flex flex-col">
                   <span className="text-sm font-medium">Water Saved</span>
                   <span className="text-lg font-semibold">
-                    {data?.analysis.waterSaved}
+                    {data?.analysis.waterSaved} L
                   </span>
                 </div>
               </div>
@@ -292,7 +293,7 @@ export function ImageAnalysisForm() {
 
               {/* Estimated Recycled Value */}
               <div className="flex items-center space-x-3">
-                <DollarSign className="text-3xl text-yellow-500" />
+                <IndianRupee className="text-3xl text-yellow-500" />
                 <div className="flex flex-col">
                   <span className="text-sm font-medium">
                     Estimated Recycled Value

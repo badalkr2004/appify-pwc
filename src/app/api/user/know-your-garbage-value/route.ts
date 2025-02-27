@@ -8,7 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export const ImageAnalysis = z.object({
+const ImageAnalysis = z.object({
   productTitle: z.string(),
   treesSaved: z.number(),
   benefitsOfRecycling: z.string(),

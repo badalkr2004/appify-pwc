@@ -36,12 +36,12 @@ export const onAuthenticateUser = async () => {
     return { status: 500 };
   }
 };
-
+type Status = "PENDING" | "COMPLETED" | "PROCESSING";
 export async function reportGarbage(data: {
   locationLatitude: string;
   locationLongitude: string;
   garbageType: string;
-  status: string;
+  status: Status;
   description: string;
   image: string;
 }) {

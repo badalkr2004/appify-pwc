@@ -99,7 +99,7 @@ const ReportLocation = () => {
         locationLongitude: body.location_longitude,
         garbageType: "plastic",
         image: body.image,
-        status: "pending",
+        status: "PENDING",
       });
       setStep(4);
     } catch (error) {

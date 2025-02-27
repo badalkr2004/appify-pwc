@@ -39,19 +39,20 @@ export default async function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased w-11/12 overflow-x-hidden mx-auto `}
+          suppressHydrationWarning
         >
           <div className=" p-2 flex  items-center w-full font-bold text-lg border-b text-gray-800 justify-between ">
-              <Link href="/">
-            <div className="flex items-center gap-2">
-              <Image src={app_logo} alt="logo" width={70} height={70} />
-              <h1 className="hidden md:block">Appify PWC</h1>
-            </div>
-              </Link>
+            <Link href="/">
+              <div className="flex items-center gap-2">
+                <Image src={app_logo} alt="logo" width={70} height={70} />
+                <h1 className="hidden md:block">Appify PWC</h1>
+              </div>
+            </Link>
             {user ? (
               <div className="flex gap-5">
                 <Points />
                 <SignedIn>
-                  <UserButton/>
+                  <UserButton />
                 </SignedIn>
               </div>
             ) : (

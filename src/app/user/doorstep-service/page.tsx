@@ -92,7 +92,7 @@ const DoorStepService = () => {
         phone: phone,
         address: address,
       });
-
+      setIsSubmitted(true);
       if (!resp.success)
         toast({
           title: "Error",
