@@ -1,12 +1,27 @@
 import { onAuthenticateUser } from "@/actions/user";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 const AuthCallbackPage = async () => {
-  const auth = await onAuthenticateUser();
+  const afterSignIn = await onAuthenticateUser();
 
-  if (auth.status === 200 || auth.status === 201) return redirect(`/admin`);
+  const { sessionClaims } = await auth();
+  const role = sessionClaims?.metadata?.role;
 
-  if (auth.status === 403 || auth.status === 400 || auth.status === 500)
+  if (
+    (afterSignIn.status === 200 || afterSignIn.status === 201) &&
+    role === "admin"
+  ) {
+    return redirect(`/admin`);
+  }
+  if (!role) {
+    return redirect(`/`);
+  }
+  if (
+    afterSignIn.status === 403 ||
+    afterSignIn.status === 400 ||
+    afterSignIn.status === 500
+  )
     return redirect("/auth/sign-in");
 };
 

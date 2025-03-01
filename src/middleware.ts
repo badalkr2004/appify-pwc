@@ -16,7 +16,7 @@ export default clerkMiddleware(async (auth, req) => {
     isAdminRoute(req) &&
     !(userRole === "admin" || userRole === "moderator")
   ) {
-    const url = new URL("/", req.url);
+    const url = new URL("/admin", req.url);
     return NextResponse.redirect(url);
   }
 

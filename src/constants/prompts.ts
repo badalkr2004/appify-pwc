@@ -26,6 +26,4 @@ typeOfRecycle--> what kind of recyling should be happen on this wate
   "waterSaved":number
   "typeOfRecycle":string
 }
-
-
 `;
